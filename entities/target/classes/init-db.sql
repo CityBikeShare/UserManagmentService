@@ -1,0 +1,1 @@
+INSERT INTO Users (name, surname, username, password, email, region) VALUES ('Zoran', 'Jankovic', 'zoki123', 'jassemcar', 'zoki123@hotmail.com', 'Ljubljana'), ('Borut', 'Pahor', 's(a)tan666', 'satan', 'borut@pahor.si', 'Ljubljana'), ('Lojze', 'Slak', 'lojzeslak', 'cvicek', 'lojze.slak@zakon.je', 'Novo mesto')
