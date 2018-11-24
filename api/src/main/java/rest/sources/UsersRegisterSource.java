@@ -5,71 +5,50 @@ import core.Users;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Path("users")
+@Path("registerUser")
 @ApplicationScoped
-public class UsersSource {
+public class UsersRegisterSource {
     @Inject
     private UsersBean usersBean;
 
     @Operation(
-            description = "Get all users",
+            description = "User registration",
             tags = "users",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Users",
+                            description = "User registration succeeded",
                             content = @Content(schema = @Schema(implementation = Users.class))
                     ),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "No users available",
+                            description = "User registration failed",
                             content = @Content(schema = @Schema(implementation = Error.class))
                     )
             }
     )
-    @GET
-    public Response getAllUsers() {
-        List<Users> users = usersBean.getUsers();
-
-        return users == null ? Response.status(Response.Status.NOT_FOUND).build() :
-                Response.status(Response.Status.OK).entity(users).build();
+    @PUT
+    public Response registerUser(@RequestBody Users user) {
+        if (usersBean.getUserByUsername(user.getUsername()) != null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        } else {
+            user = usersBean.insertUser(user);
+            return Response.ok(user).build();
+        }
     }
 
-    @Operation(
-            description = "Get user by id",
-            tags = "user",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "User by id",
-                            content = @Content(schema = @Schema(implementation = Users.class))
-                    ),
-                    @ApiResponse(
-                            responseCode = "404",
-                            description = "User with this id does not exist",
-                            content = @Content(schema = @Schema(implementation = Error.class))
-                    )
-            }
-    )
-    @Path("{id}")
-    @GET
-    public Response getUserById(@PathParam("id") int id) {
-        Users users = usersBean.getUserById(id);
-        return users == null ? Response.status(Response.Status.NOT_FOUND).build() : Response.ok(users).build();
-    }
 }

@@ -1,5 +1,6 @@
 package core;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,17 +9,17 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity(name = "Users")
-@NamedQueries(
-        value = {
-                @NamedQuery(name = "Users.getAll", query = "SELECT u from Users u")
-        }
-)
+@NamedQueries({
+        @NamedQuery(name = "Users.getAll", query = "SELECT u FROM Users u"),
+        @NamedQuery(name = "Users.getByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")
+})
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer user_id;
     private String name;
     private String surname;
+    @Column(unique = true)
     private String username;
     private String password;
     private String email;
