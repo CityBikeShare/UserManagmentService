@@ -1,0 +1,37 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: postgres-usermanagment
+spec:
+  selector:
+    app: postgres-usermanagment
+  ports:
+  - protocol: "TCP"
+    port: 5432
+    targetPort: 5432
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-usermanagment-deployment
+  labels:
+    app: postgres-usermanagment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-usermanagment
+  template:
+    metadata:
+      labels:
+        app: postgres-usermanagment
+    spec:
+      containers:
+      - name: postgres-usermanagment
+        image: postgres
+        ports:
+        - containerPort: 5432
+        env:
+          - name: POSTGRES_PASSWORD
+            value: admin
