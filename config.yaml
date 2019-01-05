@@ -1,11 +1,22 @@
 kumuluzee:
-  name: cityBikeShare
+  name: userservice
   version: 1.0.0
   env:
     name: dev
+  server:
+    http:
+      port: 8080
   datasources:
-  - jndi-name: jdbc/cityBikeShareDS
+  - jndi-name: jdbc/userservice
     connection-url: jdbc:postgresql://localhost:5432/cityBikeShare
     username: postgres
     password: admin
     max-pool-size: 20
+
+  discovery:
+    consul:
+      agent: http://localhost:8500
+
+  config:
+    consul:
+      agent: http://localhost:8500
