@@ -43,4 +43,29 @@ public class UsersBean {
         entityManager.flush();
         return user;
     }
+
+    @Transactional
+    public Users updateUser(int userId, Users user) {
+        try {
+            Users tempUser = entityManager.find(Users.class, userId);
+            user.setUser_id(tempUser.getUser_id());
+            user = entityManager.merge(user);
+        } catch(Exception e) {
+            return null;
+        }
+        return user;
+    }
+
+    @Transactional
+    public boolean deleteUser(int userId) {
+        try {
+            Users user = entityManager.find(Users.class, userId);
+            entityManager.remove(user);
+        } catch(Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
     <persistence-unit name="cityBikeShare-jpa" transaction-type="JTA">
-        <jta-data-source>jdbc/cityBikeShareDS</jta-data-source>
+        <jta-data-source>jdbc/userservice</jta-data-source>
 
         <class>core.Users</class>
 
