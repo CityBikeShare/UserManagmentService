@@ -20,3 +20,10 @@ kumuluzee:
   config:
     consul:
       agent: http://localhost:8500
+  health:
+    checks:
+      data-source-health-check:
+        jndi-name: jdbc/userservice
+      http-health-check:
+      - connection-url: https://github.com/CityBikeShare/UserManagmentService
+#      - connection-url: https://nonvalidurl.com
