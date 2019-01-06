@@ -1,6 +1,7 @@
 package beans;
 
 import core.Users;
+import org.eclipse.microprofile.metrics.annotation.Metered;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -17,15 +18,18 @@ public class UsersBean {
     @PersistenceContext(unitName = "cityBikeShare-jpa")
     private EntityManager entityManager;
 
+    @Metered(name = "getUsers")
     public List<Users> getUsers() {
         TypedQuery<Users> query = entityManager.createNamedQuery("Users.getAll", Users.class);
         return query.getResultList();
     }
 
+    @Metered(name = "getUserById")
     public Users getUserById(int userId) {
         return entityManager.find(Users.class, userId);
     }
 
+    @Metered(name = "getUserByUsername")
     public Users getUserByUsername(String username) {
         TypedQuery<Users> query = entityManager.createNamedQuery("Users.getByUsername", Users.class);
         query.setParameter("username", username);
@@ -37,6 +41,7 @@ public class UsersBean {
         }
     }
 
+    @Metered(name = "getUsersByRegion")
     public List<Users> getUsersByRegion(String region){
         TypedQuery<Users> query = entityManager.createNamedQuery("Users.getByRegion", Users.class);
         query.setParameter("region", region);
@@ -48,6 +53,7 @@ public class UsersBean {
         }
     }
 
+    @Metered(name = "insertUser")
     @Transactional
     public Users insertUser(Users user) {
         entityManager.persist(user);
@@ -55,6 +61,7 @@ public class UsersBean {
         return user;
     }
 
+    @Metered(name = "updateUser")
     @Transactional
     public Users updateUser(int userId, Users user) {
         try {
@@ -67,6 +74,7 @@ public class UsersBean {
         return user;
     }
 
+    @Metered(name = "deleteUser")
     @Transactional
     public boolean deleteUser(int userId) {
         try {
