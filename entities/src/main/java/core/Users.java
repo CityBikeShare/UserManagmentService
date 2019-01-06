@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import java.io.Serializable;
 
 @Entity(name = "Users")
 @NamedQueries({
@@ -14,7 +15,7 @@ import javax.persistence.NamedQuery;
         @NamedQuery(name = "Users.getByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"),
         @NamedQuery(name = "Users.getByRegion", query = "SELECT u FROM Users u WHERE u.region = :region")
 })
-public class Users {
+public class Users implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer user_id;
