@@ -11,7 +11,8 @@ import javax.persistence.NamedQuery;
 @Entity(name = "Users")
 @NamedQueries({
         @NamedQuery(name = "Users.getAll", query = "SELECT u FROM Users u"),
-        @NamedQuery(name = "Users.getByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")
+        @NamedQuery(name = "Users.getByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"),
+        @NamedQuery(name = "Users.getByRegion", query = "SELECT u FROM Users u WHERE u.region = :region")
 })
 public class Users {
     @Id
@@ -23,7 +24,6 @@ public class Users {
     private String username;
     private String password;
     private String email;
-
     private String region;
 
     public Integer getUser_id() {

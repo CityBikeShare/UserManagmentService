@@ -37,6 +37,17 @@ public class UsersBean {
         }
     }
 
+    public List<Users> getUsersByRegion(String region){
+        TypedQuery<Users> query = entityManager.createNamedQuery("Users.getByRegion", Users.class);
+        query.setParameter("region", region);
+
+        try {
+            return query.getResultList();
+        } catch (NoResultException | NonUniqueResultException e) {
+            return null;
+        }
+    }
+
     @Transactional
     public Users insertUser(Users user) {
         entityManager.persist(user);

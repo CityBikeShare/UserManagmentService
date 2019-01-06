@@ -81,6 +81,30 @@ public class UsersSource {
     }
 
     @Operation(
+            description = "Get user by region",
+            tags = "users",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Users by region returned",
+                            content = @Content(schema = @Schema(implementation = Users.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Failed to get any users",
+                            content = @Content(schema = @Schema(implementation = Error.class))
+                    )
+            }
+    )
+    @Path("region/{region}")
+    @GET
+    public Response getUserByRegion(@PathParam("region") String region) {
+        List<Users> users = usersBean.getUsersByRegion(region);
+        return users == null ? Response.status(Response.Status.NOT_FOUND).build() :
+                Response.status(Response.Status.OK).entity(users).build();
+    }
+
+    @Operation(
             description = "User registration",
             tags = "users",
             responses = {
