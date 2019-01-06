@@ -1,5 +1,7 @@
 ### UserManagmentService
 
+[![Build Status](https://travis-ci.org/CityBikeShare/UserManagmentService.svg?branch=master)](https://travis-ci.org/CityBikeShare/UserManagmentService)
+
 - Service allows a user to create account and login later
 
 #### Requests on kubernetes
