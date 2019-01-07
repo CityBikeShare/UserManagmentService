@@ -2,6 +2,7 @@ package rest.sources;
 
 
 import beans.UsersBean;
+import com.kumuluz.ee.logs.cdi.Log;
 import core.Users;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -27,6 +28,7 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Path("users")
+@Log
 @ApplicationScoped
 public class UsersSource {
 
