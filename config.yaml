@@ -24,8 +24,8 @@ kumuluzee:
     checks:
       data-source-health-check:
         jndi-name: jdbc/usermanagmentservice
-      http-health-check:
-      - connection-url: https://github.com/CityBikeShare/UserManagmentService
+#      http-health-check:
+#      - connection-url: https://github.com/CityBikeShare/UserManagmentService
 #      - connection-url: https://nonvalidurl.com
 
   metrics:
